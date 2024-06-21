@@ -29,10 +29,19 @@ async function run() {
 run().catch(console.dir);
 
 
+const blogCollection = client.db("shongjukti").collection("blogs")
+
+
 
 app.get("/", (req, res) => {
     res.send("hello from shongjukti");
 });
+
+app.post("/blogs", async (req, res) => {
+    const item = req.body;
+    const result = await blogCollection.insertOne(item);
+    res.send(result);
+})
 
 app.listen(port, () => {
     console.log(`The application is runnig from port : ${port}`)
